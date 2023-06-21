@@ -127,6 +127,7 @@ class Server
                 // Raise duplicate message error in case message already exists in the system
                 $message = $this->messageRepository->findMessageById($messageId);
                 if ($message) {
+                    ilog("Duplicate message, message id: ".$messageId);
                     throw new \RuntimeException('An identical message has already been sent to our server');
                 }
 

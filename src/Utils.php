@@ -92,13 +92,13 @@ class Utils
         $headersEOL = $EOL;
 
         // find an empty line between headers and body
-        // default is set new line
-        if (strpos($message, $EOL.$EOL)) {
-            [$headers, $body] = explode($EOL.$EOL, $message, 2);
-            // next is the standard new line
-        } elseif ($EOL !== "\r\n" && strpos($message, "\r\n\r\n")) {
+        // default is the standard new line
+        if ($EOL !== "\r\n" && strpos($message, "\r\n\r\n")) {
             [$headers, $body] = explode("\r\n\r\n", $message, 2);
             $headersEOL = "\r\n"; // Headers::fromString will fail with incorrect EOL
+        // next is set new line
+        } elseif (strpos($message, $EOL.$EOL)) {
+            [$headers, $body] = explode($EOL.$EOL, $message, 2);
             // next is the other "standard" new line
         } elseif ($EOL !== "\n" && strpos($message, "\n\n")) {
             [$headers, $body] = explode("\n\n", $message, 2);
@@ -327,19 +327,5 @@ class Utils
     {
         // removes xD800-xDFFF, x110000 and higher
         return htmlspecialchars_decode(htmlspecialchars($s, ENT_NOQUOTES | ENT_IGNORE, 'UTF-8'), ENT_NOQUOTES);
-    }
-
-    /**
-     * Verify if the content is binary
-     *
-     * @param mixed $str
-     *
-     * @return bool
-     */
-    public static function isBinary($str): bool
-    {
-        $str = str_ireplace(["\t","\n","\r"], ["","",""], $str);
-
-        return is_string($str) && ctype_print($str) === false;
     }
 }

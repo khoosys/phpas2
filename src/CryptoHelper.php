@@ -53,7 +53,7 @@ class CryptoHelper
      */
     public static function sign($data, $cert, $privateKey = null, $headers = [], $micAlgo = null)
     {
-        $data = self::getTempFilename($data."\r\n");
+        $data = self::getTempFilename($data); //MS was $data."\r\n", but that caused problems
         $temp = self::getTempFilename();
 
         $flags = PKCS7_DETACHED;
@@ -62,7 +62,8 @@ class CryptoHelper
             throw new \RuntimeException(sprintf('Failed to sign S/Mime message. Error: "%s".', openssl_error_string()));
         }
 
-        $payload = MimePart::fromString(file_get_contents($temp), false);
+        $payload_string = Utils::canonicalize(file_get_contents($temp));
+        $payload = MimePart::fromString($payload_string, false);
 
         if ($micAlgo) {
             $contentType = $payload->getHeaderLine('content-type');
@@ -97,11 +98,6 @@ class CryptoHelper
     public static function verify($data, $caInfo = null, $rootCerts = [])
     {
         if ($data instanceof MimePart) {
-            $temp = MimePart::createIfBinaryPart($data);
-            if ($temp !== null) {
-                $data = $temp;
-            }
-
             $data = self::getTempFilename((string) $data);
         }
 
@@ -147,7 +143,8 @@ class CryptoHelper
                 openssl_error_string()));
         }
 
-        return MimePart::fromString(file_get_contents($temp), false);
+        $payload_string = Utils::canonicalize(file_get_contents($temp));
+        return MimePart::fromString($payload_string, false);
     }
 
     /**

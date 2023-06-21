@@ -581,8 +581,8 @@ class Management implements LoggerAwareInterface
         // Build the MDN message and add to report
         $mdnData = [
             'Reporting-UA' => self::USER_AGENT,
-            'Original-Recipient' => 'rfc822; '.$receiver->getAs2Id(),
-            'Final-Recipient' => 'rfc822; '.$receiver->getAs2Id(),
+            'Original-Recipient' => 'rfc822; "'.$receiver->getAs2Id().'"',
+            'Final-Recipient' => 'rfc822; "'.$receiver->getAs2Id().'"',
             'Original-Message-ID' => '<'.$message->getMessageId().'>',
             'Disposition' => 'automatic-action/MDN-sent-automatically; processed'.($errorMessage ? '/error: '.$errorMessage : ''),
         ];
