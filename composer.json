@@ -26,10 +26,6 @@
         "phpseclib/phpseclib": "^3",
         "psr/log": "^1|^2|^3"
     },
-    "require-dev": {
-        "phpunit/phpunit": "^7.5",
-        "symfony/var-dumper": "^4.0"
-    },
     "autoload": {
         "psr-4": {
             "AS2\\": "src/"
