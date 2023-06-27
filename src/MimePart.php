@@ -507,4 +507,51 @@ class MimePart
             );
         }
     }
+
+    /**
+     * @param array<string|int, string|string[]> $headers
+     */
+    private function setHeaders(array $headers): void
+    {
+        $this->headerNames = $this->headers = [];
+        foreach ($headers as $header => $value) {
+            // Numeric array keys are converted to int by PHP.
+            $header = (string) $header;
+
+            $this->assertHeader($header);
+            $value = $this->normalizeHeaderValue($value);
+            $normalized = strtolower($header);
+            if (isset($this->headerNames[$normalized])) {
+                $header = $this->headerNames[$normalized];
+                $this->headers[$header] = array_merge($this->headers[$header], $value);
+            } else {
+                $this->headerNames[$normalized] = $header;
+                $this->headers[$header] = $value;
+            }
+        }
+    }
+
+    public function getHeader($header): array
+    {
+        $header = strtolower($header);
+
+        if (!isset($this->headerNames[$header])) {
+            return [];
+        }
+
+        $header = $this->headerNames[$header];
+
+        return $this->headers[$header];
+    }
+
+    public function getHeaderLine($header): string
+    {
+        return implode(', ', $this->getHeader($header));
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
 }
