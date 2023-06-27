@@ -3,15 +3,12 @@
 namespace AS2;
 
 use GuzzleHttp\Client;
-use Psr\Http\Message\ResponseInterface;
-use Psr\Log\LoggerAwareInterface;
-use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 /**
  * TODO: AS2-Version: 1.1 multiple attachments.
  */
-class Management implements LoggerAwareInterface
+class Management
 {
     const AS2_VERSION = '1.2';
     const EDIINT_FEATURES = 'CEM'; // multiple-attachments,
@@ -725,7 +722,7 @@ class Management implements LoggerAwareInterface
     /**
      * @return $this
      */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger($logger)
     {
         $this->logger = $logger;
 

@@ -5,10 +5,8 @@
 namespace AS2;
 
 use GuzzleHttp\Psr7\MessageTrait;
-use Psr\Http\Message\MessageInterface as PsrMessageInterface;
-use Psr\Http\Message\RequestInterface;
 
-class MimePart implements PsrMessageInterface
+class MimePart
 {
     use MessageTrait;
 
@@ -71,7 +69,7 @@ class MimePart implements PsrMessageInterface
      *
      * @return static
      */
-    public static function fromPsrMessage(PsrMessageInterface $message)
+    public static function fromPsrMessage($message)
     {
         return new static($message->getHeaders(), $message->getBody()->getContents());
     }
@@ -83,7 +81,7 @@ class MimePart implements PsrMessageInterface
      *
      * @deprecated Please use MimePart::fromPsrMessage
      */
-    public static function fromRequest(RequestInterface $request)
+    public static function fromRequest($request)
     {
         return self::fromPsrMessage($request);
     }
