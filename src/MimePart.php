@@ -47,7 +47,12 @@ class MimePart
     /** @var array<string, string[]> Map of all registered headers, as original name => array of values */
     private $headers = [];
 
-    /**
+     /** @var string */
+    private $protocol = '1.1';
+
+    /** @var StreamInterface|null */
+    private $stream;
+   /**
      * MimePart constructor.
      *
      * @param array  $headers
@@ -390,8 +395,53 @@ class MimePart
 
 
     /**
-     * below all taken from GuzzleHttp\Psr7\MessageTrait, trait itself has return types causing issues
+     * KSL below all taken from GuzzleHttp\Psr7\MessageTrait, trait itself has return types causing issues
      */
+
+     public function getProtocolVersion(): string
+    {
+        return $this->protocol;
+    }
+
+    public function withProtocolVersion($version)
+    {
+        if ($this->protocol === $version) {
+            return $this;
+        }
+
+        $new = clone $this;
+        $new->protocol = $version;
+        return $new;
+    }
+
+    public function getHeaders(): array
+    {
+        return $this->headers;
+    }
+
+    public function hasHeader($header): bool
+    {
+        return isset($this->headerNames[strtolower($header)]);
+    }
+
+    public function getHeader($header): array
+    {
+        $header = strtolower($header);
+
+        if (!isset($this->headerNames[$header])) {
+            return [];
+        }
+
+        $header = $this->headerNames[$header];
+
+        return $this->headers[$header];
+    }
+
+    public function getHeaderLine($header): string
+    {
+        return implode(', ', $this->getHeader($header));
+    }
+
     public function withHeader($header, $value)
     {
         $this->assertHeader($header);
@@ -406,6 +456,74 @@ class MimePart
         $new->headers[$header] = $value;
 
         return $new;
+    }
+
+    public function withAddedHeader($header, $value)
+    {
+        $this->assertHeader($header);
+        $value = $this->normalizeHeaderValue($value);
+        $normalized = strtolower($header);
+
+        $new = clone $this;
+        if (isset($new->headerNames[$normalized])) {
+            $header = $this->headerNames[$normalized];
+            $new->headers[$header] = array_merge($this->headers[$header], $value);
+        } else {
+            $new->headerNames[$normalized] = $header;
+            $new->headers[$header] = $value;
+        }
+
+        return $new;
+    }
+
+    public function withoutHeader($header)
+    {
+        $normalized = strtolower($header);
+
+        if (!isset($this->headerNames[$normalized])) {
+            return $this;
+        }
+
+        $header = $this->headerNames[$normalized];
+
+        $new = clone $this;
+        unset($new->headers[$header], $new->headerNames[$normalized]);
+
+        return $new;
+    }
+
+    public function withBody(StreamInterface $body)
+    {
+        if ($body === $this->stream) {
+            return $this;
+        }
+
+        $new = clone $this;
+        $new->stream = $body;
+        return $new;
+    }
+
+    /**
+     * @param array<string|int, string|string[]> $headers
+     */
+    private function setHeaders(array $headers): void
+    {
+        $this->headerNames = $this->headers = [];
+        foreach ($headers as $header => $value) {
+            // Numeric array keys are converted to int by PHP.
+            $header = (string) $header;
+
+            $this->assertHeader($header);
+            $value = $this->normalizeHeaderValue($value);
+            $normalized = strtolower($header);
+            if (isset($this->headerNames[$normalized])) {
+                $header = $this->headerNames[$normalized];
+                $this->headers[$header] = array_merge($this->headers[$header], $value);
+            } else {
+                $this->headerNames[$normalized] = $header;
+                $this->headers[$header] = $value;
+            }
+        }
     }
 
     /**
@@ -424,27 +542,6 @@ class MimePart
         }
 
         return $this->trimAndValidateHeaderValues($value);
-    }
-
-    /**
-     * @see https://tools.ietf.org/html/rfc7230#section-3.2
-     *
-     * @param mixed $header
-     */
-    private function assertHeader($header): void
-    {
-        if (!is_string($header)) {
-            throw new \InvalidArgumentException(sprintf(
-                'Header name must be a string but %s provided.',
-                is_object($header) ? get_class($header) : gettype($header)
-            ));
-        }
-
-        if (! preg_match('/^[a-zA-Z0-9\'`#$%&*+.^_|~!-]+$/D', $header)) {
-            throw new \InvalidArgumentException(
-                sprintf('"%s" is not valid header name.', $header)
-            );
-        }
     }
 
     /**
@@ -481,6 +578,27 @@ class MimePart
     /**
      * @see https://tools.ietf.org/html/rfc7230#section-3.2
      *
+     * @param mixed $header
+     */
+    private function assertHeader($header): void
+    {
+        if (!is_string($header)) {
+            throw new \InvalidArgumentException(sprintf(
+                'Header name must be a string but %s provided.',
+                is_object($header) ? get_class($header) : gettype($header)
+            ));
+        }
+
+        if (! preg_match('/^[a-zA-Z0-9\'`#$%&*+.^_|~!-]+$/D', $header)) {
+            throw new \InvalidArgumentException(
+                sprintf('"%s" is not valid header name.', $header)
+            );
+        }
+    }
+
+    /**
+     * @see https://tools.ietf.org/html/rfc7230#section-3.2
+     *
      * field-value    = *( field-content / obs-fold )
      * field-content  = field-vchar [ 1*( SP / HTAB ) field-vchar ]
      * field-vchar    = VCHAR / obs-text
@@ -507,51 +625,4 @@ class MimePart
             );
         }
     }
-
-    /**
-     * @param array<string|int, string|string[]> $headers
-     */
-    private function setHeaders(array $headers): void
-    {
-        $this->headerNames = $this->headers = [];
-        foreach ($headers as $header => $value) {
-            // Numeric array keys are converted to int by PHP.
-            $header = (string) $header;
-
-            $this->assertHeader($header);
-            $value = $this->normalizeHeaderValue($value);
-            $normalized = strtolower($header);
-            if (isset($this->headerNames[$normalized])) {
-                $header = $this->headerNames[$normalized];
-                $this->headers[$header] = array_merge($this->headers[$header], $value);
-            } else {
-                $this->headerNames[$normalized] = $header;
-                $this->headers[$header] = $value;
-            }
-        }
-    }
-
-    public function getHeader($header): array
-    {
-        $header = strtolower($header);
-
-        if (!isset($this->headerNames[$header])) {
-            return [];
-        }
-
-        $header = $this->headerNames[$header];
-
-        return $this->headers[$header];
-    }
-
-    public function getHeaderLine($header): string
-    {
-        return implode(', ', $this->getHeader($header));
-    }
-
-    public function getHeaders(): array
-    {
-        return $this->headers;
-    }
-
 }
