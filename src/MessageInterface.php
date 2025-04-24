@@ -46,7 +46,7 @@ interface MessageInterface
     public function setDirection($dir);
 
     /**
-     * @return PartnerInterface
+     * @return null|PartnerInterface
      */
     public function getSender();
 
@@ -56,7 +56,7 @@ interface MessageInterface
     public function setSender(PartnerInterface $partner);
 
     /**
-     * @return PartnerInterface
+     * @return null|PartnerInterface
      */
     public function getReceiver();
 

@@ -6,8 +6,6 @@ namespace AS2;
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\ServerRequest;
-use Psr\Http\Message\ServerRequestInterface;
-use Psr\Log\LoggerInterface;
 use Psr\Log\NullLogger;
 
 class Server
@@ -51,7 +49,7 @@ class Server
      *
      * @return Response
      */
-    public function execute(ServerRequestInterface $request = null)
+    public function execute($request = null)
     {
         if (! $request) {
             $request = ServerRequest::fromGlobals();
@@ -127,6 +125,7 @@ class Server
                 // Raise duplicate message error in case message already exists in the system
                 $message = $this->messageRepository->findMessageById($messageId);
                 if ($message) {
+                    ilog("Duplicate message, message id: ".$messageId);
                     throw new \RuntimeException('An identical message has already been sent to our server');
                 }
 
@@ -228,7 +227,7 @@ class Server
     /**
      * @return $this
      */
-    public function setLogger(LoggerInterface $logger)
+    public function setLogger($logger)
     {
         $this->logger = $logger;
 
