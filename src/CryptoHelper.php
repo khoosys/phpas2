@@ -45,9 +45,9 @@ class CryptoHelper
      *
      * @param  string|MimePart  $data
      * @param  string|resource  $cert
-     * @param  string|resource  $privateKey
+     * @param  null|array|string|resource  $privateKey
      * @param  array  $headers
-     * @param  array  $micAlgo
+     * @param  null|string  $micAlgo
      *
      * @return MimePart
      */

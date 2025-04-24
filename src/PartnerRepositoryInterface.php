@@ -7,7 +7,7 @@ interface PartnerRepositoryInterface
     /**
      * @param string $id
      *
-     * @return PartnerInterface
+     * @return null|PartnerInterface
      */
     public function findPartnerById($id);
 }

@@ -186,7 +186,7 @@ class MimePart
     }
 
     /**
-     * @return bool
+     * @return int
      */
     public function getCountParts()
     {

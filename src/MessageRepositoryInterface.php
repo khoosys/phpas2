@@ -7,7 +7,7 @@ interface MessageRepositoryInterface
     /**
      * @param string $id
      *
-     * @return MessageInterface
+     * @return null|MessageInterface
      */
     public function findMessageById($id);
 
