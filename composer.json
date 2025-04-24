@@ -1,5 +1,5 @@
 {
-    "name": "tiamo/phpas2",
+    "name": "khoosys/phpas2",
     "description": "PHPAS2 is a php-based implementation of the EDIINT AS2 standard",
     "type": "library",
     "version": "2.1",
