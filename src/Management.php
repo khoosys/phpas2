@@ -15,7 +15,7 @@ class Management
     const USER_AGENT = 'PHPAS2';
 
     /**
-     * @var LoggerInterface
+     * @var \Psr\Log\LoggerInterface
      */
     protected $logger;
 
@@ -349,7 +349,7 @@ class Management
      *
      * @param  MimePart|string  $payload
      *
-     * @return ResponseInterface|false
+     * @return \Psr\Http\Message\ResponseInterface|false
      * @noinspection PhpDocMissingThrowsInspection
      */
     public function sendMessage(MessageInterface $message, $payload)
@@ -708,7 +708,7 @@ class Management
     }
 
     /**
-     * @return LoggerInterface
+     * @return \Psr\Log\LoggerInterface
      */
     public function getLogger()
     {
