@@ -1,9 +1,9 @@
 <?php
 
-namespace AS2\Tests\Mock;
+namespace PHPAS2\Tests\Mock;
 
-use AS2\MessageInterface;
-use AS2\MessageRepositoryInterface;
+use PHPAS2\MessageInterface;
+use PHPAS2\MessageRepositoryInterface;
 
 class MessageRepository implements MessageRepositoryInterface
 {

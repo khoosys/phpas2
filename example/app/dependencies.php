@@ -2,7 +2,7 @@
 
 use App\Repositories\MessageRepository;
 use App\Repositories\PartnerRepository;
-use AS2\Management;
+use PHPAS2\Management;
 use Monolog\Logger;
 
 return function ($container) {

@@ -4,22 +4,22 @@ Please have a look at an example application based on Slim3 framework.
 
 You can also create your own classes.
 
-- Implement MessageRepository class based on \AS2\MessageRepositoryInterface
-- Implement Message class based on \AS2\MessageInterface
-- Implement PartnerRepository class based on \AS2\PartnerRepositoryInterface
-- Implement Partner class based on \AS2\PartnerInterface
+- Implement MessageRepository class based on \PHPAS2\MessageRepositoryInterface
+- Implement Message class based on \PHPAS2\MessageInterface
+- Implement PartnerRepository class based on \PHPAS2\PartnerRepositoryInterface
+- Implement Partner class based on \PHPAS2\PartnerInterface
 
 ### Example Receive AS2 Message
 ```php
-$manager = new \AS2\Management();
+$manager = new \PHPAS2\Management();
 
-/** @var /AS2/MessageRepositoryInterface $messageRepository */
+/** @var /PHPAS2/MessageRepositoryInterface $messageRepository */
 $messageRepository = new App\Repositories\MessageRepository();
 
-/** @var /AS2/PartnerRepositoryInterface $partnerRepository */
+/** @var /PHPAS2/PartnerRepositoryInterface $partnerRepository */
 $partnerRepository = new App\Repositories\PartnerRepository();
 
-$server = new \AS2\Server($manager, $partnerRepository, $messageRepository);
+$server = new \PHPAS2\Server($manager, $partnerRepository, $messageRepository);
 
 /** @var \GuzzleHttp\Psr7\Response $response */
 $response = $server->excecute();
@@ -28,15 +28,15 @@ $response = $server->excecute();
 ### Example Send AS2 Message
 ```php
 
-$manager = new \AS2\Management();
+$manager = new \PHPAS2\Management();
 
 //loading conf files
 $partners          = require __DIR__ . '/config/partners.php';
 
-/** @var /AS2/MessageRepositoryInterface $messageRepository */
+/** @var /PHPAS2/MessageRepositoryInterface $messageRepository */
 $messageRepository = new App\Repositories\MessageRepository(['path' => $storagePath . DIRECTORY_SEPARATOR . 'sent']);
 
-/** @var /AS2/PartnerRepositoryInterface $partnerRepository */
+/** @var /PHPAS2/PartnerRepositoryInterface $partnerRepository */
 $partnerRepository = new App\Repositories\PartnerRepository($partners);
 
 // Init partners
@@ -44,7 +44,7 @@ $sender = $partnerRepository->findPartnerById('A');
 $receiver = $partnerRepository->findPartnerById('B');
 
 // Generate new message ID
-$messageId = \AS2\Utils::generateMessageID($sender);
+$messageId = \PHPAS2\Utils::generateMessageID($sender);
 $rawMessage = '
 Content-type: Application/EDI-X12
 Content-disposition: attachment; filename=payload

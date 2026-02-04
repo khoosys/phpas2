@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use AS2\MessageInterface;
-use AS2\PartnerInterface;
+use PHPAS2\MessageInterface;
+use PHPAS2\PartnerInterface;
 
 class Message extends DataObject implements MessageInterface
 {

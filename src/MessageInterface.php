@@ -1,6 +1,6 @@
 <?php
 
-namespace AS2;
+namespace PHPAS2;
 
 interface MessageInterface
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace AS2;
+namespace PHPAS2;
 
 /**
  * TODO: Implement pure methods without "openssl_pkcs7"

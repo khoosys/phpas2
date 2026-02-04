@@ -1,6 +1,6 @@
 <?php
 
-namespace AS2;
+namespace PHPAS2;
 
 use GuzzleHttp\Client;
 use Psr\Log\NullLogger;

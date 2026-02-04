@@ -4,8 +4,8 @@ namespace App\Commands;
 
 use App\Repositories\MessageRepository;
 use App\Repositories\PartnerRepository;
-use AS2\Management;
-use AS2\Utils;
+use PHPAS2\Management;
+use PHPAS2\Utils;
 use Psr\Container\ContainerInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;

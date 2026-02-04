@@ -1,12 +1,12 @@
 <?php
 
-namespace AS2\Tests;
+namespace PHPAS2\Tests;
 
-use AS2\Management;
-use AS2\MessageRepositoryInterface;
-use AS2\PartnerRepositoryInterface;
-use AS2\Tests\Mock\MessageRepository;
-use AS2\Tests\Mock\PartnerRepository;
+use PHPAS2\Management;
+use PHPAS2\MessageRepositoryInterface;
+use PHPAS2\PartnerRepositoryInterface;
+use PHPAS2\Tests\Mock\MessageRepository;
+use PHPAS2\Tests\Mock\PartnerRepository;
 
 abstract class TestCase extends \PHPUnit\Framework\TestCase
 {

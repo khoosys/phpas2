@@ -1,8 +1,8 @@
 <?php
 
-namespace AS2\Tests\Mock;
+namespace PHPAS2\Tests\Mock;
 
-use AS2\PartnerInterface;
+use PHPAS2\PartnerInterface;
 
 class Partner extends DataObject implements PartnerInterface
 {

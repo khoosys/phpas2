@@ -1,11 +1,11 @@
 <?php
 
-namespace AS2\Tests\Unit;
+namespace PHPAS2\Tests\Unit;
 
-use AS2\MimePart;
-use AS2\Server;
-use AS2\Tests\TestCase;
-use AS2\Utils;
+use PHPAS2\MimePart;
+use PHPAS2\Server;
+use PHPAS2\Tests\TestCase;
+use PHPAS2\Utils;
 use GuzzleHttp\Psr7\ServerRequest;
 
 class ServerTest extends TestCase

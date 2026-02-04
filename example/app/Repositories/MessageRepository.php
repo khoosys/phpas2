@@ -2,8 +2,8 @@
 
 namespace App\Repositories;
 
-use AS2\MessageInterface;
-use AS2\MessageRepositoryInterface;
+use PHPAS2\MessageInterface;
+use PHPAS2\MessageRepositoryInterface;
 use App\Models\Message;
 
 class MessageRepository implements MessageRepositoryInterface

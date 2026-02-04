@@ -2,7 +2,7 @@
 
 /** @noinspection PhpUnused */
 
-namespace AS2;
+namespace PHPAS2;
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\ServerRequest;

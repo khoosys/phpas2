@@ -1,6 +1,6 @@
 <?php
 
-namespace AS2\Tests\Mock;
+namespace PHPAS2\Tests\Mock;
 
 class DataObject
 {

@@ -3,7 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Partner;
-use AS2\PartnerRepositoryInterface;
+use PHPAS2\PartnerRepositoryInterface;
 
 class PartnerRepository implements PartnerRepositoryInterface
 {

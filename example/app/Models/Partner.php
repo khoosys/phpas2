@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use AS2\PartnerInterface;
+use PHPAS2\PartnerInterface;
 
 class Partner extends DataObject implements PartnerInterface
 {

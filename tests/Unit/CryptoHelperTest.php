@@ -1,10 +1,10 @@
 <?php
 
-namespace AS2\Tests\Unit;
+namespace PHPAS2\Tests\Unit;
 
-use AS2\CryptoHelper;
-use AS2\MimePart;
-use AS2\Tests\TestCase;
+use PHPAS2\CryptoHelper;
+use PHPAS2\MimePart;
+use PHPAS2\Tests\TestCase;
 
 /**
  * @see CryptoHelper

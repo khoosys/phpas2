@@ -4,7 +4,7 @@
 
 /** @noinspection PhpFullyQualifiedNameUsageInspection */
 
-namespace AS2;
+namespace PHPAS2;
 
 class Utils
 {

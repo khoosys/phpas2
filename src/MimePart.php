@@ -2,7 +2,7 @@
 
 /** @noinspection PhpUnused */
 
-namespace AS2;
+namespace PHPAS2;
 
 class MimePart
 {

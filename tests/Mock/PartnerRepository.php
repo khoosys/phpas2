@@ -1,9 +1,9 @@
 <?php
 
-namespace AS2\Tests\Mock;
+namespace PHPAS2\Tests\Mock;
 
-use AS2\PartnerInterface;
-use AS2\PartnerRepositoryInterface;
+use PHPAS2\PartnerInterface;
+use PHPAS2\PartnerRepositoryInterface;
 
 class PartnerRepository implements PartnerRepositoryInterface
 {

@@ -19,7 +19,7 @@ return [
 
     'management' => [
         /**
-         * @see \AS2\Management::$options
+         * @see \PHPAS2\Management::$options
          */
     ],
 

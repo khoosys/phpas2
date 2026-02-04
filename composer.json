@@ -28,12 +28,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AS2\\": "src/"
+            "PHPAS2\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "AS2\\Tests\\": "tests/"
+            "PHPAS2\\Tests\\": "tests/"
         }
     },
     "minimum-stability": "dev",

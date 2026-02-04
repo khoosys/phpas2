@@ -1,12 +1,12 @@
 <?php
 
-namespace AS2\Tests\Unit;
+namespace PHPAS2\Tests\Unit;
 
-use AS2\MessageInterface;
-use AS2\MimePart;
-use AS2\PartnerInterface;
-use AS2\Tests\TestCase;
-use AS2\Utils;
+use PHPAS2\MessageInterface;
+use PHPAS2\MimePart;
+use PHPAS2\PartnerInterface;
+use PHPAS2\Tests\TestCase;
+use PHPAS2\Utils;
 
 class ManagementTest extends TestCase
 {

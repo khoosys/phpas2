@@ -1,6 +1,6 @@
 <?php
 
-use AS2\Server;
+use PHPAS2\Server;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Psr\Http\Message\ResponseInterface as Response;
 use Slim\App;
@@ -17,7 +17,7 @@ return function (App $app) {
         );
 
         // $message = file_get_contents(__DIR__ . '/tmp/phpas2_aXFQKQ');
-        // $payload = \AS2\Utils::parseMessage($message);
+        // $payload = \PHPAS2\Utils::parseMessage($message);
         // $serverRequest = new ServerRequest(
         //     'POST',
         //     'http:://localhost',

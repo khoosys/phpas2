@@ -1,6 +1,6 @@
 <?php
 
-use AS2\PartnerInterface;
+use PHPAS2\PartnerInterface;
 
 $resources = __DIR__.'/../resources';
 
